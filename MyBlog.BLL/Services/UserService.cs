@@ -6,6 +6,7 @@ using MyBlog.DAL.UnitOfWork;
 using MyBlog.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MyBlog.BLL.Services
@@ -34,6 +35,12 @@ namespace MyBlog.BLL.Services
             _userRepository.Delete(user);
             _unitOfWork.SaveChanges();
 
+
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return _userRepository.GetAll().OrderBy(x => x.Id).ToList();
 
         }
 
