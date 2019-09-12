@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Common.Security;
 using MyBlog.DAL.Config;
 using MyBlog.Domain.Entities;
 using System;
@@ -14,6 +15,7 @@ namespace MyBlog.DAL.Contexts
         {
             Database.EnsureCreated();
 
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,17 @@ namespace MyBlog.DAL.Contexts
             modelBuilder.ApplyConfiguration(new PostConfiguration());
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id=1,
+                UserName="nilayergul21@gmail.com",
+
+                PasswordHash=HashHelper.HashPassword("Ankara1."),
+                UserType = Domain.Enums.UserType.Admin
+
+
+            });
 
         }
 
